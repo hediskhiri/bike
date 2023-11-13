@@ -44,7 +44,7 @@ class Produit
     private $idcategorie;
 
     
-    #[ORM\Column(type:"string",lenth : 255 nullable: true  )]
+    #[ORM\Column(type:string,lenth : 255 ,nullable: false  )]
     
     #[assert\NotBlank(message:"image is required")]
     private $imageprod;
