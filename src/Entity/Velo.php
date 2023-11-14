@@ -4,6 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Velo
+ *
+ * @ORM\Table(name="velo", indexes={@ORM\Index(name="station", columns={"station"})})
+ * @ORM\Entity
+ */
 class Velo
 {
     /**
