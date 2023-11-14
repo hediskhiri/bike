@@ -33,11 +33,7 @@
   );
   */
 
-  $contact->add_message( $_POST['departure'], 'City of Departure');
-  $contact->add_message( $_POST['delivery'], 'Delivery City');
-  $contact->add_message( $_POST['weight'], 'Total Weight (kg)');
-  $contact->add_message( $_POST['dimensions'], 'Dimensions (cm)');
-  $contact->add_message( $_POST['name'], 'Name');
+  $contact->add_message( $_POST['name'], 'From');
   $contact->add_message( $_POST['email'], 'Email');
   $contact->add_message( $_POST['phone'], 'Phone');
   $contact->add_message( $_POST['message'], 'Message', 10);
