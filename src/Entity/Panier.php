@@ -80,6 +80,7 @@ class Panier
         $this->etat = $etat;
 
         return $this;
+        
     }
 
     public function getUserid(): ?int
