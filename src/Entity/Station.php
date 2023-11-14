@@ -4,6 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Station
+ *
+ * @ORM\Table(name="station")
+ * @ORM\Entity
+ */
 class Station
 {
     /**
