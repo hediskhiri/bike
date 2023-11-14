@@ -7,16 +7,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
+
+
+
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 #[ORM\Table(name: "Produit ")]
+
+
 
 class Produit 
 {
    #[ORM\Id]
-   #[ORM\Generatevalue]
- #[ORM\Column]
-
-       private $idprod;
+   #[ORM\Generatevalue] 
+   #[ORM\Column]
+     private $idprod;
 
 
        #[ORM\Column(lenth: 255)]
@@ -44,7 +49,7 @@ class Produit
     private $idcategorie;
 
     
-    #[ORM\Column(type:"string",lenth : 255 nullable: true  )]
+    #[ORM\Column(type:"string", lenth : 255 , nullable: true  )]
     
     #[assert\NotBlank(message:"image is required")]
     private $imageprod;
