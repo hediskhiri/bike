@@ -28,22 +28,5 @@ class Categorie
      */
     private $nomcategorie;
 
-    public function getIdcategorie(): ?int
-    {
-        return $this->idcategorie;
-    }
-
-    public function getNomcategorie(): ?string
-    {
-        return $this->nomcategorie;
-    }
-
-    public function setNomcategorie(string $nomcategorie): static
-    {
-        $this->nomcategorie = $nomcategorie;
-
-        return $this;
-    }
-
 
 }

@@ -35,34 +35,5 @@ class Station
      */
     private $emplacementS;
 
-    public function getIdS(): ?int
-    {
-        return $this->idS;
-    }
-
-    public function getNomS(): ?string
-    {
-        return $this->nomS;
-    }
-
-    public function setNomS(string $nomS): static
-    {
-        $this->nomS = $nomS;
-
-        return $this;
-    }
-
-    public function getEmplacementS(): ?string
-    {
-        return $this->emplacementS;
-    }
-
-    public function setEmplacementS(string $emplacementS): static
-    {
-        $this->emplacementS = $emplacementS;
-
-        return $this;
-    }
-
 
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Velo
  *
- * @ORM\Table(name="velo")
+ * @ORM\Table(name="velo", indexes={@ORM\Index(name="station", columns={"station"})})
  * @ORM\Entity
  */
 class Velo
@@ -50,76 +50,14 @@ class Velo
     private $image;
 
     /**
-     * @var string
+     * @var \Station
      *
-     * @ORM\Column(name="station", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Station")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="station", referencedColumnName="id_s")
+     * })
      */
     private $station;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getModele(): ?string
-    {
-        return $this->modele;
-    }
-
-    public function setModele(?string $modele): static
-    {
-        $this->modele = $modele;
-
-        return $this;
-    }
-
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?string $etat): static
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    public function getPrix(): ?float
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(float $prix): static
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getStation(): ?string
-    {
-        return $this->station;
-    }
-
-    public function setStation(string $station): static
-    {
-        $this->station = $station;
-
-        return $this;
-    }
 
 
 }

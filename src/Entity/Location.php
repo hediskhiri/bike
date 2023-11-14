@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Location
  *
- * @ORM\Table(name="location", indexes={@ORM\Index(name="velo", columns={"id"})})
+ * @ORM\Table(name="location", indexes={@ORM\Index(name="velo", columns={"id"}), @ORM\Index(name="id_u", columns={"id_u"})})
  * @ORM\Entity
  */
 class Location
@@ -20,13 +20,6 @@ class Location
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $locationId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_u", type="integer", nullable=false)
-     */
-    private $idU;
 
     /**
      * @var string
@@ -45,81 +38,29 @@ class Location
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="prix", type="integer", nullable=false)
      */
     private $prix;
 
-    public function getLocationId(): ?int
-    {
-        return $this->locationId;
-    }
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_u", referencedColumnName="idUser")
+     * })
+     */
+    private $idU;
 
-    public function getIdU(): ?int
-    {
-        return $this->idU;
-    }
-
-    public function setIdU(int $idU): static
-    {
-        $this->idU = $idU;
-
-        return $this;
-    }
-
-    public function getStartDate(): ?string
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(string $startDate): static
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?string
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(string $endDate): static
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function getPrix(): ?int
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(int $prix): static
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
+    /**
+     * @var \Velo
+     *
+     * @ORM\ManyToOne(targetEntity="Velo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
+     */
+    private $id;
 
 
 }

@@ -52,58 +52,5 @@ class Velos
      */
     private $idS;
 
-    public function getIdV(): ?int
-    {
-        return $this->idV;
-    }
-
-    public function getModel(): ?string
-    {
-        return $this->model;
-    }
-
-    public function setModel(string $model): static
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getIdS(): ?Station
-    {
-        return $this->idS;
-    }
-
-    public function setIdS(?Station $idS): static
-    {
-        $this->idS = $idS;
-
-        return $this;
-    }
-
 
 }
