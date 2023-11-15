@@ -25,6 +25,18 @@ class ProduitController extends AbstractController
         ]);
     }
 
+    #[Route('/front', name: 'app_produit_front', methods: ['GET'])]
+    public function produitfront(EntityManagerInterface $entityManager): Response
+    {
+        $produits = $entityManager
+            ->getRepository(Produit::class)
+            ->findAll();
+
+        return $this->render('produit/show.html.twig', [
+            'produits' => $produits,
+        ]);
+    }
+
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -32,7 +44,7 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
              /** @var UploadedFile $file */
              $file = $form->get('imageprod')->getData();
               // If a file was uploaded
@@ -69,10 +81,10 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/{idprod}', name: 'app_produit_show', methods: ['GET'])]
+    #[Route('/{idprod}', name: 'app_produit_single', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
-        return $this->render('produit/show.html.twig', [
+        return $this->render('produit/single.html.twig', [
             'produit' => $produit,
         ]);
     }
