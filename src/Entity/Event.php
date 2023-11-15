@@ -2,120 +2,117 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-
-#[ORM\Entity(repositoryClass: EventRepository::class)]
-#[ORM\Table(name: "Event")]
+/**
+ * Event
+ *
+ * @ORM\Table(name="event")
+ * @ORM\Entity
+ */
 class Event
 {
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"name is required")]
-    private $name;
-
-   
-
-     /**
-     * @var int The hashed price
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="text", length=65535, nullable=false)
      */
-    #[ORM\Column]
-    #[Assert\NotBlank(message:"price is required")]
+    private $nom;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
+     */
     private $price;
 
-    #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank(message:"date is required")]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date", type="text", length=65535, nullable=false)
+     */
     private $date;
 
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private $image;
-
-    
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    #[Assert\NotBlank(message:"place is required")]
-    private $place;
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    #[Assert\NotBlank(message:"description is required")]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
     private $description;
 
-    
-
-     
-   
- 
-
-
-
-
-     /**
-
- */
-   /**
-
- */
-public function getSalt(): ?string
-    {
-        return null;
-    }
-
-/**
-    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="text", length=65535, nullable=false)
      */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainprice = null;
-    }
-    
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="place", type="text", length=65535, nullable=false)
+     */
+    private $place;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-   
-
-    public function getname(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->nom;
     }
 
-    public function setname(string $name): static
+    public function setNom(string $nom): static
     {
-        $this->name = $name;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getprice(): ?string
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setprice(string $price): static
+    public function setPrice(float $price): static
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getdate(): ?string
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function setdate(string $date): static
+    public function setDate(string $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -132,37 +129,17 @@ public function getSalt(): ?string
         return $this;
     }
 
-    public function getplace(): ?string
+    public function getPlace(): ?string
     {
         return $this->place;
     }
 
-    public function setplace(string $place): static
+    public function setPlace(string $place): static
     {
         $this->place = $place;
 
         return $this;
     }
-
-
-    public function getdescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setdescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-    public function getResetToken(): ?string
-    {
-        return $this->reset_token;
-    }
-
-    
-
 
 
 }

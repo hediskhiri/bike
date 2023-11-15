@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Produit
  *
- * @ORM\Table(name="produit", indexes={@ORM\Index(name="idCategorie", columns={"idCategorie"})})
+ * @ORM\Table(name="produit")
  * @ORM\Entity
  */
 class Produit
@@ -50,13 +53,6 @@ class Produit
     private $remise;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idCategorie", type="integer", nullable=false)
-     */
-    private $idcategorie;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="imageProd", type="string", length=155, nullable=false)
@@ -76,6 +72,98 @@ class Produit
     public function __construct()
     {
         $this->panier = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getIdprod(): ?int
+    {
+        return $this->idprod;
+    }
+
+    public function getNomprod(): ?string
+    {
+        return $this->nomprod;
+    }
+
+    public function setNomprod(string $nomprod): static
+    {
+        $this->nomprod = $nomprod;
+
+        return $this;
+    }
+
+    public function getDescriptionprod(): ?string
+    {
+        return $this->descriptionprod;
+    }
+
+    public function setDescriptionprod(string $descriptionprod): static
+    {
+        $this->descriptionprod = $descriptionprod;
+
+        return $this;
+    }
+
+    public function getPrixprod(): ?int
+    {
+        return $this->prixprod;
+    }
+
+    public function setPrixprod(int $prixprod): static
+    {
+        $this->prixprod = $prixprod;
+
+        return $this;
+    }
+
+    public function getRemise(): ?float
+    {
+        return $this->remise;
+    }
+
+    public function setRemise(float $remise): static
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    public function getImageprod(): ?string
+    {
+        return $this->imageprod;
+    }
+
+    public function setImageprod(string $imageprod): static
+    {
+        $this->imageprod = $imageprod;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier->add($panier);
+            $panier->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->panier->removeElement($panier)) {
+            $panier->removeProduit($this);
+        }
+
+        return $this;
     }
 
 }

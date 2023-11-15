@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Maintenance
  *
- * @ORM\Table(name="maintenance", indexes={@ORM\Index(name="fkidxxqf", columns={"id_v"})})
+ * @ORM\Table(name="maintenance", indexes={@ORM\Index(name="FK_2F84F8E9ACF191FB", columns={"id_v"})})
  * @ORM\Entity
  */
 class Maintenance
@@ -44,6 +45,47 @@ class Maintenance
      * })
      */
     private $idV;
+
+    public function getIdM(): ?int
+    {
+        return $this->idM;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->startTime;
+    }
+
+    public function setStartTime(\DateTimeInterface $startTime): static
+    {
+        $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->endTime;
+    }
+
+    public function setEndTime(\DateTimeInterface $endTime): static
+    {
+        $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    public function getIdV(): ?Velo
+    {
+        return $this->idV;
+    }
+
+    public function setIdV(?Velo $idV): static
+    {
+        $this->idV = $idV;
+
+        return $this;
+    }
 
 
 }
