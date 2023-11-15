@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Produit
  *
- * @ORM\Table(name="produit", indexes={@ORM\Index(name="idCategorie", columns={"idCategorie"})})
+ * @ORM\Table(name="produit")
  * @ORM\Entity
  */
 class Produit
@@ -50,13 +53,6 @@ class Produit
     private $remise;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idCategorie", type="integer", nullable=false)
-     */
-    private $idcategorie;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="imageProd", type="string", length=155, nullable=false)
@@ -78,7 +74,6 @@ class Produit
         $this->panier = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    
     public function getIdprod(): ?int
     {
         return $this->idprod;
@@ -128,18 +123,6 @@ class Produit
     public function setRemise(float $remise): static
     {
         $this->remise = $remise;
-
-        return $this;
-    }
-
-    public function getIdcategorie(): ?int
-    {
-        return $this->idcategorie;
-    }
-
-    public function setIdcategorie(int $idcategorie): static
-    {
-        $this->idcategorie = $idcategorie;
 
         return $this;
     }

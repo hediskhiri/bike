@@ -38,5 +38,34 @@ class Reponse
      */
     private $idrec;
 
+    public function getIdrep(): ?int
+    {
+        return $this->idrep;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(string $contenu): static
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getIdrec(): ?Reclamation
+    {
+        return $this->idrec;
+    }
+
+    public function setIdrec(?Reclamation $idrec): static
+    {
+        $this->idrec = $idrec;
+
+        return $this;
+    }
+
 
 }

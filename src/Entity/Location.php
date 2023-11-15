@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Location
  *
- * @ORM\Table(name="location", indexes={@ORM\Index(name="velo", columns={"id"}), @ORM\Index(name="id_u", columns={"id_u"})})
+ * @ORM\Table(name="location", indexes={@ORM\Index(name="FK_5E9E89CB35F8C041", columns={"id_u"}), @ORM\Index(name="velo", columns={"id"})})
  * @ORM\Entity
  */
 class Location
@@ -61,6 +61,71 @@ class Location
      * })
      */
     private $id;
+
+    public function getLocationId(): ?int
+    {
+        return $this->locationId;
+    }
+
+    public function getStartDate(): ?string
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(string $startDate): static
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?string
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(string $endDate): static
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getIdU(): ?Utilisateur
+    {
+        return $this->idU;
+    }
+
+    public function setIdU(?Utilisateur $idU): static
+    {
+        $this->idU = $idU;
+
+        return $this;
+    }
+
+    public function getId(): ?Velo
+    {
+        return $this->id;
+    }
+
+    public function setId(?Velo $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
 
 }

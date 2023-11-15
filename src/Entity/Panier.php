@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -80,7 +82,6 @@ class Panier
         $this->etat = $etat;
 
         return $this;
-        
     }
 
     public function getUserid(): ?int
@@ -130,4 +131,5 @@ class Panier
 
         return $this;
     }
+
 }

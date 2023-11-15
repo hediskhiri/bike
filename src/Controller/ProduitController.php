@@ -33,10 +33,34 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             /** @var UploadedFile $file */
+             $file = $form->get('imageprod')->getData();
+              // If a file was uploaded
+            if ($file) {
+                $filename = uniqid() . '.' . $file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                $file->move(
+                    'produitimages',
+                    $filename
+                );
+                
+                // Update the 'image' property to store the image file name
+                // instead of its contents
+                $produit->setImageprod($filename);
+               
+                
+
+            }
+            try {
             $entityManager->persist($produit);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        } catch (\Exception $e) {
+            // Handle exceptions
+            var_dump($e->getMessage()); // Output the error message for debugging
+        }
         }
 
         return $this->renderForm('produit/new.html.twig', [
@@ -59,12 +83,34 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() /*&& $form->isValid()*/) {
+            if ($form->get('imageprod')->getData()) {
+                $file = $form->get('imageprod')->getData();
+
+                // If a file was uploaded
+                if ($file) {
+                    $filename = uniqid() . '.' . $file->guessExtension();
+
+                    // Move the file to the directory where brochures are stored
+                    $file->move(
+                        'produitimages',
+                        $filename
+                    );
+                    
+                    // Update the 'image' property to store the image file name
+                    // instead of its contents
+                    $produit->setImageprod($filename);
+                   
+                }
+            } else {
+                // Keep the old profile picture
+                $produit->setImageprod($produit->getImageprod());
+            }
+            $entityManager->persist($produit);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
@@ -74,11 +120,8 @@ class ProduitController extends AbstractController
     #[Route('/{idprod}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getIdprod(), $request->request->get('_token'))) {
-            $entityManager->remove($produit);
-            $entityManager->flush();
-        }
-
+        $entityManager->remove($produit);
+        $entityManager->flush();
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 }

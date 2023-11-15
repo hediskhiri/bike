@@ -41,5 +41,34 @@ class Participant
      */
     private $iduser;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdEvent(): ?Event
+    {
+        return $this->idEvent;
+    }
+
+    public function setIdEvent(?Event $idEvent): static
+    {
+        $this->idEvent = $idEvent;
+
+        return $this;
+    }
+
+    public function getIduser(): ?Utilisateur
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?Utilisateur $iduser): static
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
 
 }

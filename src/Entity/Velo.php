@@ -59,5 +59,70 @@ class Velo
      */
     private $station;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getModele(): ?string
+    {
+        return $this->modele;
+    }
+
+    public function setModele(?string $modele): static
+    {
+        $this->modele = $modele;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getStation(): ?Station
+    {
+        return $this->station;
+    }
+
+    public function setStation(?Station $station): static
+    {
+        $this->station = $station;
+
+        return $this;
+    }
+
 
 }
