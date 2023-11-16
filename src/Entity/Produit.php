@@ -51,7 +51,15 @@ class Produit
     /**
      * @var int
      *
-     * @ORM\Column(name="prixProd", type="integer", nullable=false)
+    * @ORM\Column(name="prixProd", type="integer", nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^\d+$/",
+     *     message="Le prix doit contenir uniquement des chiffres."
+     * )
+     * @Assert\GreaterThan(
+     *     value=0,
+     *     message="Le prix doit être supérieur à zéro."
+     * )
      */
     private $prixprod;
 
@@ -124,7 +132,7 @@ class Produit
         return $this->prixprod;
     }
 
-    public function setPrixprod(int $prixprod): static
+    public function setPrixprod(int $prixprod): self
     {
         $this->prixprod = $prixprod;
 
