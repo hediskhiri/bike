@@ -58,35 +58,27 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
-    {
-        $produit = new Produit();
-        $form = $this->createForm(ProduitType::class, $produit);
-        $form->handleRequest($request);
+public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
+{
+    $produit = new Produit();
+    $form = $this->createForm(ProduitType::class, $produit);
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted()) {
+        $file = $form->get('imageprod')->getData();
+        if ($file) {
+            $filename = uniqid() . '.' . $file->guessExtension();
+            
+            try {
+                $file->move('produitimages', $filename);
+                $produit->setImageprod($filename);
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur lors de l\'upload de l\'image.');
+                return $this->redirectToRoute('app_produit_new');
+            }
+        }
         
-        if ($form->isSubmitted()/* && $form->isValid()*/) {
-            // Validation des champs prixprod, nomprod et remise
-            $prixProd = $form->get('prixprod')->getData();
-            $nomProd = $form->get('nomprod')->getData();
-            $remise = $form->get('remise')->getData();
-
-            // Vérification si le champ prixprod est vide ou nul
-            if (empty($prixProd) || $prixProd <= 0) {
-                $this->addFlash('error', 'Le prix du produit doit être supérieur à zéro.');
-                return $this->redirectToRoute('app_produit_new');
-            }
-
-            // Validation via le ValidatorInterface (d'autres validations peuvent être ajoutées ici)
-            $errors = $validator->validate($produit);
-            if (count($errors) > 0) {
-                $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
-                // Afficher les erreurs si nécessaire
-                // foreach ($errors as $error) {
-                //     $this->addFlash('error', $error->getMessage());
-                // }
-                return $this->redirectToRoute('app_produit_new');
-            }
-
+        if ($form->isValid()) {
             try {
                 $entityManager->persist($produit);
                 $entityManager->flush();
@@ -97,13 +89,17 @@ class ProduitController extends AbstractController
                 $this->addFlash('error', 'Une erreur est survenue lors de la création du produit.');
                 var_dump($e->getMessage()); // Output the error message for debugging
             }
+        } else {
+            $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
+            return $this->redirectToRoute('app_produit_new');
         }
-
-        return $this->renderForm('produit/new.html.twig', [
-            'produit' => $produit,
-            'form' => $form,
-        ]);
     }
+
+    return $this->renderForm('produit/new.html.twig', [
+        'produit' => $produit,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{idprod}', name: 'app_produit_single', methods: ['GET'])]
     public function show(Produit $produit): Response
