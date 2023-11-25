@@ -11,7 +11,7 @@
 					<h5 class="mb-0">Créer produit</h5>
 				</div>
 				<div class="card-body">
-{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'action': path('app_produit_new'), 'method': 'POST'}}) }}
+					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-fullname">Nom produit</label>
 						{{ form_widget(form.nomprod, { 'attr': {'class': 'form-control'} }) }}
@@ -55,12 +55,7 @@
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-message">Image</label>
 						{{ form_widget(form.imageprod, { 'attr': {'class': 'form-control'} }) }}
-						{% if form_errors(form.imageprod) %}
-							<div class="text-danger">{{ form_errors(form.imageprod) }}</div>
-						{% endif %}
-						{% if errors.imageprod is defined %}
-							<div class="text-danger">{{ errors.imageprod }}</div>
-						{% endif %}
+						
 					</div>
 					<button class="btn btn-primary" type="submit">{{ button_label|default('Ajouter produit') }}</button>
 					{{ form_end(form) }}
