@@ -120,7 +120,7 @@ class Produit
         return $this->descriptionprod;
     }
 
-    public function setDescriptionprod(string $descriptionprod): static
+    public function setDescriptionprod(string $descriptionprod): self
     {
         $this->descriptionprod = $descriptionprod;
 
@@ -156,7 +156,7 @@ class Produit
         return $this->imageprod;
     }
 
-    public function setImageprod(string $imageprod): static
+    public function setImageprod(string $imageprod): self
     {
         $this->imageprod = $imageprod;
 
@@ -171,7 +171,7 @@ class Produit
         return $this->panier;
     }
 
-    public function addPanier(Panier $panier): static
+    public function addPanier(Panier $panier): self
     {
         if (!$this->panier->contains($panier)) {
             $this->panier->add($panier);
@@ -181,7 +181,7 @@ class Produit
         return $this;
     }
 
-    public function removePanier(Panier $panier): static
+    public function removePanier(Panier $panier): self
     {
         if ($this->panier->removeElement($panier)) {
             $panier->removeProduit($this);

@@ -77,7 +77,7 @@ class Panier
         return $this->etat;
     }
 
-    public function setEtat(int $etat): static
+    public function setEtat(int $etat): self
     {
         $this->etat = $etat;
 
@@ -89,7 +89,7 @@ class Panier
         return $this->userid;
     }
 
-    public function setUserid(int $userid): static
+    public function setUserid(int $userid): self
     {
         $this->userid = $userid;
 
@@ -101,7 +101,7 @@ class Panier
         return $this->prix;
     }
 
-    public function setPrix(?int $prix): static
+    public function setPrix(?int $prix): self
     {
         $this->prix = $prix;
 
@@ -116,7 +116,7 @@ class Panier
         return $this->produit;
     }
 
-    public function addProduit(Produit $produit): static
+    public function addProduit(Produit $produit): self
     {
         if (!$this->produit->contains($produit)) {
             $this->produit->add($produit);
@@ -125,7 +125,7 @@ class Panier
         return $this;
     }
 
-    public function removeProduit(Produit $produit): static
+    public function removeProduit(Produit $produit): self
     {
         $this->produit->removeElement($produit);
 
