@@ -70,9 +70,16 @@ class PanierController extends AbstractController
     {
         $panier = $this->session->get('cart', []);
         $numberOfItems = count($panier);
+        // Calculer le montant total du panier
+    $totalAmount = 0;
+    foreach ($panier as $item) {
+        $totalAmount += $item['total'] * $item['quantity'];
+    }
+
         return $this->render('panier/panier.html.twig', [
             'paniers' => $panier,
             'numberOfItems' => $numberOfItems,
+            'totalAmount' => $totalAmount, // Envoyer le montant total à la vue
         ]);
     }
 
