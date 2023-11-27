@@ -58,48 +58,42 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
-{
-    $produit = new Produit();
-    $form = $this->createForm(ProduitType::class, $produit);
-    $form->handleRequest($request);
-    
-    if ($form->isSubmitted()) {
-        $file = $form->get('imageprod')->getData();
-        if ($file) {
-            $filename = uniqid() . '.' . $file->guessExtension();
-            
-            try {
-                $file->move('produitimages', $filename);
-                $produit->setImageprod($filename);
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Erreur lors de l\'upload de l\'image.');
-                return $this->redirectToRoute('app_produit_new');
-            }
-        }
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $produit = new Produit();
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
         
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageprod')->getData();
+            if ($file) {
+                try {
+                    $filename = uniqid() . '.' . $file->guessExtension();
+                    $file->move('produitimages', $filename);
+                    $produit->setImageprod($filename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image.');
+                    return $this->redirectToRoute('app_produit_new');
+                }
+            }
+    
             try {
                 $entityManager->persist($produit);
                 $entityManager->flush();
-
+    
                 $this->addFlash('success', 'Le produit a été créé avec succès.');
                 return $this->redirectToRoute('app_produit_index');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la création du produit.');
                 var_dump($e->getMessage()); // Output the error message for debugging
             }
-        } else {
-            $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
-            return $this->redirectToRoute('app_produit_new');
-        }
+        } 
+        return $this->renderForm('produit/new.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
     }
-
-    return $this->renderForm('produit/new.html.twig', [
-        'produit' => $produit,
-        'form' => $form,
-    ]);
-}
+    
 
     #[Route('/{idprod}', name: 'app_produit_single', methods: ['GET'])]
     public function show(Produit $produit): Response
