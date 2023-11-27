@@ -23,6 +23,13 @@ class PdfGeneratorController extends AbstractController
         // Récupérer les données du panier depuis la session
         $panier = $this->session->get('cart', []);
 
+        
+
+        $logoPath = $this->getParameter('kernel.project_dir') . '/public/logo.png'; // Assuming logo.png is directly in the public folder
+        $logoImage = file_get_contents($logoPath);
+        $logoBase64 = 'data:image/png;base64,' . base64_encode($logoImage);
+
+ 
         // Données à passer au template Twig
         $data = [
           /*  'name' => 'John Doe',
@@ -30,6 +37,7 @@ class PdfGeneratorController extends AbstractController
             'mobileNumber' => '000000000',
             'email' => 'john.doe@email.com',*/
             'panier' => $panier,
+            'logoBase64' => $logoBase64, 
         ];
 
         // Rendre la vue avec les données
