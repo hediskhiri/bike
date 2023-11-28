@@ -3,10 +3,15 @@
 
 {% block body %}
 
+{# //recherche avec ajax multi fonction // #}
+
 <br>
     <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
     <br><br>
 	<div class="card">
+		
+		
+		
 		<h5 class="card-header">Table Caption</h5>
 		<div class="table-responsive text-nowrap">
 			<table class="table">
@@ -82,7 +87,7 @@
 			</table>
 		</div>
 	</div>
-
+    {# recherche avec ajax  #}
 	<script>
         function filterTable() {
             const filter = document.getElementById('searchInput').value.toUpperCase();
