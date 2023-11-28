@@ -2,48 +2,65 @@
 
 namespace App\Entity;
 
+use App\Repository\MaintenanceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Maintenance
- *
- * @ORM\Table(name="maintenance", indexes={@ORM\Index(name="fkidxxqf", columns={"id_v"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: MaintenanceRepository::class)]
 class Maintenance
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_m", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idM;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="start_time", type="date", nullable=false)
-     */
-    private $startTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $start_time = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="end_time", type="date", nullable=false)
-     */
-    private $endTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $end_time = null;
 
-    /**
-     * @var \Velo
-     *
-     * @ORM\ManyToOne(targetEntity="Velo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_v", referencedColumnName="id")
-     * })
-     */
-    private $idV;
+    #[ORM\ManyToOne(inversedBy: 'maintenances')]
+    private ?Station $stations = null;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->start_time;
+    }
+
+    public function setStartTime(\DateTimeInterface $start_time): static
+    {
+        $this->start_time = $start_time;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->end_time;
+    }
+
+    public function setEndTime(\DateTimeInterface $end_time): static
+    {
+        $this->end_time = $end_time;
+
+        return $this;
+    }
+
+    public function getStations(): ?Station
+    {
+        return $this->stations;
+    }
+
+    public function setStations(?Station $stations): static
+    {
+        $this->stations = $stations;
+
+        return $this;
+    }
 }
