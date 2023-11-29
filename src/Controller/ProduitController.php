@@ -40,7 +40,7 @@ class ProduitController extends AbstractController
         $produits = new Paginator($query);
 
         $currentPage = $request->query->getInt('page', 1);
-        $itemsPerPage = 6;
+        $itemsPerPage = 3;
 
         $produits
         ->getQuery()
