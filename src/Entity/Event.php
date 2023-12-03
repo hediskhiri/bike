@@ -2,85 +2,91 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: EventRepository::class)]
+/**
+ * Event
+ *
+ * @ORM\Table(name="event")
+ * @ORM\Entity
+ */
 class Event
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    #[Assert\NotBlank]
-    private ?string $name = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="text", length=65535, nullable=false)
+     */
+    private $nom;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    #[Assert\NotBlank(message: "Place obligatoire")]
-    private ?string $place = null;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $price;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $price = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date", type="text", length=65535, nullable=false)
+     */
+    private $date;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: "/^\d{2}\/\d{2}\/\d{4}$/",
-        message: "Le format de la date doit être jj/mm/aaaa."
-    )]
-    private ?string $date = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $image = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="text", length=65535, nullable=false)
+     */
+    private $image;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $description = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="place", type="text", length=65535, nullable=false)
+     */
+    private $place;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getNom(): ?string
     {
-        $this->id = $id;
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPlace(): ?string
-    {
-        return $this->place;
-    }
-
-    public function setPlace(?string $place): static
-    {
-        $this->place = $place;
-
-        return $this;
-    }
-
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(?int $price): static
+    public function setPrice(float $price): static
     {
         $this->price = $price;
 
@@ -92,21 +98,9 @@ class Event
         return $this->date;
     }
 
-    public function setDate(?string $date): static
+    public function setDate(string $date): static
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -116,14 +110,36 @@ class Event
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
+    public function setDescription(string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
-    
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(string $place): static
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
 
 }
